@@ -4,9 +4,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
-# -----------------------------
+
 # 1. Sample Dataset (Feedback)
-# -----------------------------
+
 data = {
     "feedback": [
         "The internship was amazing and I learned a lot",
@@ -32,46 +32,47 @@ data = {
 
 df = pd.DataFrame(data)
 
-# -----------------------------
+
 # 2. Features & Labels
-# -----------------------------
+
 X = df["feedback"]
 y = df["sentiment"]
 
-# -----------------------------
+
 # 3. Train-Test Split
-# -----------------------------
+
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# -----------------------------
+
 # 4. Convert Text → Numbers
-# -----------------------------
+
 vectorizer = TfidfVectorizer()
 X_train_vectors = vectorizer.fit_transform(X_train)
 X_test_vectors = vectorizer.transform(X_test)
 
-# -----------------------------
+
 # 5. Train Model
-# -----------------------------
+
 model = LogisticRegression()
 model.fit(X_train_vectors, y_train)
 
-# -----------------------------
+
+
 # 6. Predictions
-# -----------------------------
+
 y_pred = model.predict(X_test_vectors)
 
-# -----------------------------
+
 # 7. Accuracy
-# -----------------------------
+
 accuracy = accuracy_score(y_test, y_pred)
 print("Model Accuracy:", accuracy)
 
-# -----------------------------
+
 # 8. Test New Feedback
-# -----------------------------
+
 new_feedback = ["The training was very helpful and enjoyable"]
 new_feedback_vector = vectorizer.transform(new_feedback)
 
